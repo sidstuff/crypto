@@ -100,7 +100,50 @@ For pseudonymous communications, the above is sufficient. Your identity is simpl
 
 But what if you want to associate your public key with your real life identity or your website, so people can trust they're actually communicating with the person/website they think they are? The simplest solution is a centralized trust model, where you have trusted third parties called certificate authorities, whose public keys come built into your OS and browser. They are trusted to verify your identity or ownership of a given email or domain name, and grant you a certificate signed by them saying that your public key does indeed belong to XYZ.
 
-For instance, let's say youcangetintouchwithsid@fgmail.com is my work email (it's not, consider it compromised). Go to https://www.actalis.com/request-s-mime-certificate, create an account, and generate `certificate_s_mime.p12`. Now run
+For instance, let's say youcangetintouchwithsid@gmail.com is my work email (it's not, consider it compromised). Go to https://www.actalis.com/request-s-mime-certificate, create an account, and generate `certificate_s_mime.p12`.
+
+From [Wikipedia](https://en.wikipedia.org/wiki/PKCS_12),
+> A PKCS #12 file (`.p12` or `.pfx`) defines an archive file format for storing many cryptography objects as a single file. It is commonly used to bundle a private key with its X.509 certificate or to bundle all the members of a chain of trust.
+
+To obtain our private key from `certificate_s_mime.p12`, run
+```
+$ openssl pkcs12 -in certificate_s_mime.p12 -nocerts -nodes -out priv.key
+Enter Import Password: z6KVABZTK2gd*bC&02
+$ cat priv.key
+Bag Attributes
+    localKeyID: EF 8C B5 D8 AC 16 2E E3 C8 BD 8C 60 E5 E8 B9 94 DA 90 1A B1 
+    friendlyName: youcangetintouchwithsid@gmail.com
+Key Attributes: <No Attributes>
+-----BEGIN PRIVATE KEY-----
+MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCrM5z/aBuIEaHs
+y45yd+aslEs6VsT3iLM4YFKYgx747ixZZmIAswozQENwnhZU71TzgRr81Jl4kRcE
+DuH6YSQqn2ZiUAy59Jnd7hHvtyzKiwCJvF6+RRrp5ONWkeojcnzQ6jbgn+1Z3Cn7
+TpMDmsKogtFpFB0Li5K+vfQerVbJX/YovCIYtbz3tuUDnSp4qPzpfGMlc6O/Ci+k
+4ZIjxKhgzHcdoLir2/EHUrLBDQJrjHf7uWQEpV9rbO58H8rC4mwx1nyACJENRgOR
+xTQyRrx34ZL3vZGPtZKNyYPAEUw0UdgARB/zeYPw6jCN0nJrMq0DNUPu9O19Z4SS
+hnUPZhc5AgMBAAECggEACQfa8zoJob7UXMpMBEvA1j+oTDaBg1EpqwKhuLvJ6XWe
+z0RwTPskwZlVNV6RbP+G6qVXyBhq1ApLPYKPdwaiwsDPxMXWNgTqDOPe/FccPL7i
+U2GlWcIJbmcNeuaNhDsozFhedrDY81GCwWfep2UFeaAU7ccK1S4Smo8ojmm0V0Dr
+fsJCXypsunwIgf2ND+rZj/drqDkWmq4Bb2BaPbmviVwNwFjtVJjBov5BNP4m+Rnz
+RTapFiv3ML5Xv61rxa8E/oD3W6T3Z5TXmi1SLLI77uCE70NyOfHVpnOBXS6JaJo7
+iq4NYuqtsOY86i1AUfUXFh8LlUB6PRFzJA7N4SW39QKBgQDapJKAFVpUTZEqhw6d
+EVE13vtrMvp+DoQNppCnr1X4jEfuazkS3BjAi7l46+bJLa2kYh2w0ifreQscpRri
+Nn1i3LsSRk88xGNUJoFV+G+ssYPobfKHGHR9hMdoz5PKXscuZYbidVynstaCaTth
+EIcJMwpEdYm7psBhSPlz98P8LwKBgQDIc/aZ1fpVauyPddBOpXrE1ULdwkin0TXG
+9FWu/BosYiL/mIKgcOUDoB1SLXevHV3yirqOxpdrJ/TtBAfWUt8GZ9hoVDX0yk+t
+WBdWHat42OtquJDyhJRF9nvJlCdqDY1RVxXNYRRMnJLEssJHGdgReC8EyLmBjYMP
+CIlhXUXBFwKBgF0QBYddD1iot2xJli/GqjFq2srzJOm41f5VcmbdW5Nyaj+SBfYA
+Fs0F7AkLJ+1jcvBwDsEvgmxY1iD4Kaw1k0McPsf1g06TLNApn41vNGFmIYYyHjPg
+ddzjQllbWUWe99rIvhPv7mM23NUfY3XaKhABWJJxERH9VQ9Tl1IEGLhjAoGAZXkO
+pOGFUChIiHcDdEyg0XOD3e60CQAHUSfvGB3WwhEL1ofF2KJNzIAJV8hchfE/1cAU
+oKI3lK8tda5MqVpaPEvlaSr4BWtE2mN1rMpoO0zUH7o+5gXnaWNVVr4BFda2ay7C
+gq1aMU4xnhE/9+5FStKkOq/B+KtCZSHVKcyluxECgYEAyExP8bR3li5XuaN9aGfd
+/TcufkCFWLJfuxZLP7vk/3P71oR9Ew3tvhU+tb3eW72AtsYwjpW4pwQCM7B/PnRy
+pnSqgT/x4j8vvVMdq+IUcKghYza85gBVuNdh7jK2u3WYrZcsvjyf5NKBqjQyeHoq
+xWOS3cvSPQyDcyY6xVTLKZA=
+-----END PRIVATE KEY-----
+```
+To get our certificate, run
 ```
 $ openssl pkcs12 -in certificate_s_mime.p12 -clcerts -nokeys -out mycert.crt
 Enter Import Password: z6KVABZTK2gd*bC&02
@@ -153,7 +196,7 @@ The stuff before `-----BEGIN CERTIFICATE-----` can be removed, running the follo
 ```
 openssl x509 -in mycert.crt -out my_cert.crt
 ```
-To read the information contained in the certificate, run
+We share our certificate with the people we want to communicate with. To read the information contained in the certificate, they can run
 ```
 $ openssl x509 -in my_cert.crt -text -noout
 Certificate:
@@ -245,13 +288,13 @@ Certificate:
         9b:3b:ce:b9:d6:e0:f3:c3:e2:83:f9:77:c1:91:c7:63:fe:e2:
         70:8e:b8:6e:d9:60:2c:20
 ```
-This actually tells us where to get the CA certificate that we can use to verify our certificate. Visit https://cacert.actalis.it/certs/actalis-autclig3 and `cacertificate_actalis_autclientg3.cer` (DER format, binary encoding) will be downloaded. Alternatively, visit https://www.actalis.it/documenti-it/actalisclientauthenticationcag3.aspx and `Certificato della SubCA G3.cer` (PEM format, base64 encoded and delimited by `-----BEGIN/END CERTIFICATE-----`) will be downloaded.
+This also tells them where to get the CA certificate that they can use to verify our certificate was indeed signed by the CA. Visit https://cacert.actalis.it/certs/actalis-autclig3 and `cacertificate_actalis_autclientg3.cer` (DER format, binary encoding) will be downloaded. Alternatively, visit https://www.actalis.it/documenti-it/actalisclientauthenticationcag3.aspx and `Certificato della SubCA G3.cer` (PEM format, base64 encoded and delimited by `-----BEGIN/END CERTIFICATE-----`) will be downloaded.
 
-You can convert from one format to the other pretty easily:
+The formats can be interconverted pretty easily:
 ```
 openssl x509 -inform DER -outform PEM -in cacertificate_actalis_autclientg3.cer -out autclientg3.cer
 ```
-The person you want to communicate with can use the PEM encoded CA certifcate (which contains the CA public key) to verify that your certificate was indeed signed by the CA.
+Now the person you're communicating with can use the PEM encoded CA certifcate (which contains the CA public key) to verify that your certificate was indeed signed by the CA.
 ```
 $ openssl verify -CAfile 'Certificato della SubCA G3.cer' my_cert.crt
 my_cert.crt: OK
@@ -268,47 +311,4 @@ YMx3HaC4q9vxB1KywQ0Ca4x3+7lkBKVfa2zufB/KwuJsMdZ8gAiRDUYDkcU0Mka8
 d+GS972Rj7WSjcmDwBFMNFHYAEQf83mD8OowjdJyazKtAzVD7vTtfWeEkoZ1D2YX
 OQIDAQAB
 -----END PUBLIC KEY-----
-```
-From [Wikipedia](https://en.wikipedia.org/wiki/PKCS_12),
-> A PKCS #12 file (`.p12` or `.pfx`) defines an archive file format for storing many cryptography objects as a single file. It is commonly used to bundle a private key with its X.509 certificate or to bundle all the members of a chain of trust.
-
-To obtain our private key from `certificate_s_mime.p12`, run
-```
-openssl pkcs12 -in certificate_s_mime.p12 -nocerts -nodes -out priv.key
-Enter Import Password: z6KVABZTK2gd*bC&02
-```
-```
-$ cat priv.key
-Bag Attributes
-    localKeyID: EF 8C B5 D8 AC 16 2E E3 C8 BD 8C 60 E5 E8 B9 94 DA 90 1A B1 
-    friendlyName: youcangetintouchwithsid@gmail.com
-Key Attributes: <No Attributes>
------BEGIN PRIVATE KEY-----
-MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCrM5z/aBuIEaHs
-y45yd+aslEs6VsT3iLM4YFKYgx747ixZZmIAswozQENwnhZU71TzgRr81Jl4kRcE
-DuH6YSQqn2ZiUAy59Jnd7hHvtyzKiwCJvF6+RRrp5ONWkeojcnzQ6jbgn+1Z3Cn7
-TpMDmsKogtFpFB0Li5K+vfQerVbJX/YovCIYtbz3tuUDnSp4qPzpfGMlc6O/Ci+k
-4ZIjxKhgzHcdoLir2/EHUrLBDQJrjHf7uWQEpV9rbO58H8rC4mwx1nyACJENRgOR
-xTQyRrx34ZL3vZGPtZKNyYPAEUw0UdgARB/zeYPw6jCN0nJrMq0DNUPu9O19Z4SS
-hnUPZhc5AgMBAAECggEACQfa8zoJob7UXMpMBEvA1j+oTDaBg1EpqwKhuLvJ6XWe
-z0RwTPskwZlVNV6RbP+G6qVXyBhq1ApLPYKPdwaiwsDPxMXWNgTqDOPe/FccPL7i
-U2GlWcIJbmcNeuaNhDsozFhedrDY81GCwWfep2UFeaAU7ccK1S4Smo8ojmm0V0Dr
-fsJCXypsunwIgf2ND+rZj/drqDkWmq4Bb2BaPbmviVwNwFjtVJjBov5BNP4m+Rnz
-RTapFiv3ML5Xv61rxa8E/oD3W6T3Z5TXmi1SLLI77uCE70NyOfHVpnOBXS6JaJo7
-iq4NYuqtsOY86i1AUfUXFh8LlUB6PRFzJA7N4SW39QKBgQDapJKAFVpUTZEqhw6d
-EVE13vtrMvp+DoQNppCnr1X4jEfuazkS3BjAi7l46+bJLa2kYh2w0ifreQscpRri
-Nn1i3LsSRk88xGNUJoFV+G+ssYPobfKHGHR9hMdoz5PKXscuZYbidVynstaCaTth
-EIcJMwpEdYm7psBhSPlz98P8LwKBgQDIc/aZ1fpVauyPddBOpXrE1ULdwkin0TXG
-9FWu/BosYiL/mIKgcOUDoB1SLXevHV3yirqOxpdrJ/TtBAfWUt8GZ9hoVDX0yk+t
-WBdWHat42OtquJDyhJRF9nvJlCdqDY1RVxXNYRRMnJLEssJHGdgReC8EyLmBjYMP
-CIlhXUXBFwKBgF0QBYddD1iot2xJli/GqjFq2srzJOm41f5VcmbdW5Nyaj+SBfYA
-Fs0F7AkLJ+1jcvBwDsEvgmxY1iD4Kaw1k0McPsf1g06TLNApn41vNGFmIYYyHjPg
-ddzjQllbWUWe99rIvhPv7mM23NUfY3XaKhABWJJxERH9VQ9Tl1IEGLhjAoGAZXkO
-pOGFUChIiHcDdEyg0XOD3e60CQAHUSfvGB3WwhEL1ofF2KJNzIAJV8hchfE/1cAU
-oKI3lK8tda5MqVpaPEvlaSr4BWtE2mN1rMpoO0zUH7o+5gXnaWNVVr4BFda2ay7C
-gq1aMU4xnhE/9+5FStKkOq/B+KtCZSHVKcyluxECgYEAyExP8bR3li5XuaN9aGfd
-/TcufkCFWLJfuxZLP7vk/3P71oR9Ew3tvhU+tb3eW72AtsYwjpW4pwQCM7B/PnRy
-pnSqgT/x4j8vvVMdq+IUcKghYza85gBVuNdh7jK2u3WYrZcsvjyf5NKBqjQyeHoq
-xWOS3cvSPQyDcyY6xVTLKZA=
------END PRIVATE KEY-----
 ```
