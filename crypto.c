@@ -11,7 +11,7 @@
 #define S_(x) #x
 #define S(x) S_(x)
 
-static void setrandnum(mpz_t num, int bits) {
+void setrandnum(mpz_t num, int bits) {
 
   int bytes = (bits%8 == 0) ? bits/8 : bits/8+1; 
   char buf[bytes];
@@ -21,7 +21,7 @@ static void setrandnum(mpz_t num, int bits) {
 
 }
 
-static void randnum(int bits) {
+void randnum(int bits) {
 
   mpz_t num;
   mpz_init(num);
@@ -31,7 +31,7 @@ static void randnum(int bits) {
 
 }
 
-static void key(int bits) {
+void key(int bits) {
 
   mpz_t num;
   mpz_init(num);
@@ -44,7 +44,7 @@ static void key(int bits) {
 
 }
 
-static void setprime(mpz_t num, int bits) {
+void setprime(mpz_t num, int bits) {
 
   do {
     setrandnum(num, bits);
@@ -52,7 +52,7 @@ static void setprime(mpz_t num, int bits) {
 
 }
 
-static void prime(int bits) {
+void prime(int bits) {
 
   mpz_t num;
   mpz_init(num);
@@ -62,7 +62,7 @@ static void prime(int bits) {
 
 }
 
-static void setprime2(mpz_t num, int bits) {
+void setprime2(mpz_t num, int bits) {
 
   mpz_t num2;
   mpz_init(num2);
@@ -74,7 +74,7 @@ static void setprime2(mpz_t num, int bits) {
 
 }
 
-static void setprime1(mpz_t num, int bits) {
+void setprime1(mpz_t num, int bits) {
 
   mpz_t num2;
   mpz_init(num2);
@@ -87,7 +87,7 @@ static void setprime1(mpz_t num, int bits) {
 
 }
 
-static void setprv(mpz_t priv[2], int bits) {
+void setprv(mpz_t priv[2], int bits) {
 
   mpz_t num1, num2, e_val, lambda;
   mpz_inits(num1, num2, e_val, lambda, '\0');
@@ -112,7 +112,7 @@ static void setprv(mpz_t priv[2], int bits) {
 
 }
 
-static void prv(int bits) {
+void prv(int bits) {
 
   mpz_t priv[2];
   mpz_inits(priv[0], priv[1], '\0');
@@ -125,7 +125,7 @@ static void prv(int bits) {
 
 }
 
-static void pair(int bits) {
+void pair(int bits) {
 
   mpz_t priv[2];
   mpz_inits(priv[0], priv[1], '\0');
@@ -140,7 +140,7 @@ static void pair(int bits) {
 
 }
 
-static void pub(void) {
+void pub(void) {
 
   char c;
   while((c = getchar()) != ' ') putchar(c);
@@ -148,7 +148,7 @@ static void pub(void) {
 
 }
 
-static void func(char* str_in, int base_in, int base_out) {
+void func(char* str_in, int base_in, int base_out) {
 
   mpz_t key[2], val_in, val_out;
   mpz_inits(key[0], key[1], val_in, val_out, '\0');
