@@ -16,7 +16,7 @@ From [Wikipedia](https://en.wikipedia.org/wiki/Public-key_cryptography):
 
 In this tutorial, we'll be using [OpenSSL](https://www.openssl.org), as well as a simple implementation [`crypto.c`](https://github.com/sidstuff/crypto/blob/master/crypto.c) of the [RSA public key algorithm](https://en.wikipedia.org/wiki/RSA_(cryptosystem)). It has the [GNU Multiple Precision Arithmetic Library](https://gmplib.org) as a dependency and can be compiled by running
 ```
-gcc crypto.c -o crypto -lgmp
+gcc crypto.c -o crypto -s -lgmp
 ```
 
 ## Usage
